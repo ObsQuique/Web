@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Red-T 🍅</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Fuentes e iconos -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    html {
+  scroll-behavior: smooth;
+}
+    /* Base */
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background-color: #121212;
+      color: white;
+    }
+
+    .footer {
+  background: #111;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+  border-top: 2px solid #fb02d2;
+}
+
+.footer-content {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.footer-links {
+  margin: 15px 0;
+}
+
+.footer-links a {
+  color: #fb02d2;
+  margin: 0 10px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #fff;
+}
+
+.social-icons a {
+  color: #fb02d2;
+  margin: 0 8px;
+  font-size: 20px;
+  transition: transform 0.3s ease;
+}
+
+.social-icons a:hover {
+  transform: scale(1.2);
+  color: #fff;
+}
+
+    /* ☰ Botón de menú fijo en esquina izquierda */
+    .menu-toggle {
+      font-size: 28px;
+      cursor: pointer;
+      color: white;
+      padding: 15px;
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 1001;
+      user-select: none;
+    }
+    .gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.card {
+  background-color: #1e1e1e;
+  border-radius: 12px;
+  box-shadow: 0 0 10px #fb02d2;
+  overflow: hidden;
+  width: 180px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
+
+.card p {
+  margin: 10px 0;
+  font-weight: 600;
+  color: #e0e0e0;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+
+    /* Navbar con logo centrado y redes a la derecha */
+    .navbar {
+      position: relative;
+      height: 80px;
+      background-color: #1e1e1e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid #222;
+    }
+
+    .logo {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .logo img {
+      height: 60px;
+    }
+
+    .social-icons {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-icons a {
+      color: white;
+      font-size: 20px;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .social-icons a:hover {
+      color: #fb02d2;
+    }
+
+    .image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.image-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 0 12px #fb02d2;
+}
+
+.image-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.image-card:hover img {
+  transform: scale(1.1);
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.image-card:hover .overlay {
+  opacity: 1;
+}
+
+.contact-info {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+}
+
+.info-card {
+  text-align: center;
+  color: #fff;
+}
+
+.info-card i {
+  font-size: 28px;
+  color: #fb02d2;
+  margin-bottom: 8px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 12px;
+  border: 2px solid #fb02d2;
+  border-radius: 8px;
+  background: #111;
+  color: #fff;
+}
+
+.contact-form button {
+  background: #fb02d2;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.contact-form button:hover {
+  background: #d301b0;
+}
+
+    /* 📂 Barra lateral */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px; /* Oculta al inicio */
+      width: 250px;
+      height: 100%;
+      background-color: #1e1e1e;
+      padding-top: 80px; /* Separación del top para no tapar navbar */
+      transition: left 0.3s ease;
+      z-index: 1000;
+      box-shadow: 0 0 10px #fb02d2;
+      border-right: 1px solid #222;
+    }
+
+    .sidebar a {
+      display: block;
+      color: white;
+      padding: 15px 25px;
+      text-decoration: none;
+      font-weight: 600;
+      border-bottom: 1px solid #222;
+      letter-spacing: 0.3px;
+    }
+
+    .sidebar a:hover {
+      background-color: #fb02d2;
+      color: black;
+    }
+
+    /* 🌿 Introducción */
+    .intro {
+      max-width: 900px;
+      text-align: center;
+      padding: 40px 20px;
+      margin: 0 auto;
+    }
+
+    .intro h1 {
+      color: #fb02d2;
+      font-size: 2.6em;
+      margin: 20px 0 10px;
+    }
+
+    .intro p {
+      font-size: 1.15em;
+      line-height: 1.7;
+      color: #cfcfcf;
+      margin: 0 auto 10px;
+    }
+
+    /* Contenido separador para que no quede pegado al navbar */
+    .content {
+      padding: 10px 20px 40px;
+    }
+
+    /* Responsivo mínimo */
+    @media (max-width: 480px) {
+      .logo img { height: 48px; }
+      .menu-toggle { font-size: 26px; padding: 12px; }
+      .social-icons a { font-size: 18px; }
+      .sidebar { width: 220px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ☰ Botón de menú -->
+  <div class="menu-toggle" onclick="toggleSidebar()" aria-label="Abrir menú lateral">☰</div>
+
+  <!-- Navbar -->
+  <div class="navbar">
+<div class="logo" id="logo">
+  <img src="logo.png" alt="Logo Tomatox">
+</div>
+    <div class="social-icons">
+      <a href="https://www.instagram.com/mvgasx/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.facebook.com/mv.vargas.soto" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+    </div>
+  </div>
+
+  <!-- Barra lateral -->
+  <div class="sidebar" id="sidebar">
+    <a href="#logo">Inicio 🍅</a>
+    <a href="#nosotros">Nosotros🌱</a>
+    <a href="#productos">Productos🍅</a>
+    <a href="#imagenes">Imágenes🌱</a>
+    <a href="#contacto">Contacto🍅</a>
+    <a href="login.html">Acceso del Dueño🔐</a>
+  </div>
+       <!-- 🏠 Inicio -->
+<div id="inicio">
+ <!-- 🖼️ Banner con imagen de fondo y texto encima -->
+<div style="position: relative; text-align: center; margin-top: 30px;">
+  <img src="imagen1.jpg" alt="Invernadero de jitomates" style="width: 100%; max-height: 500px; object-fit: cover; filter: brightness(0.5); border-radius: 12px;">
+
+  <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+              color: white; font-family: 'Montserrat', sans-serif; padding: 20px; max-width: 900px;">
+    <h1 style="color: #fb02d2; font-size: 2.8em; margin-bottom: 15px;">Bienvenido a "Red-T 🍅"</h1>
+    <p style="font-size: 1.2em; line-height: 1.6; color: #e0e0e0;">
+       <p>
+        Los invernaderos representan una revolución silenciosa en la agricultura moderna. 
+        Al controlar el clima, proteger los cultivos y optimizar los recursos, 
+        permiten producir alimentos de alta calidad durante todo el año, incluso en condiciones adversas.
+      </p>
+      <p>
+        En <strong>Tomatox</strong>, nos especializamos en el cultivo de <strong>jitomate</strong>, 
+        combinando tradición agrícola con tecnología inteligente. Nuestro sistema te permite registrar ventas, 
+        monitorear producción y mantener un control preciso del invernadero, todo desde una plataforma visual y accesible.
+      </p>
+      <p>
+        Cultivamos con pasión, precisión y propósito. Porque cada jitomate que sale de nuestro invernadero 
+        lleva el sabor de la tierra, el cuidado del proceso y el orgullo de hacerlo bien.
+      </p>
+    </div>
+  </div>
+</div>
+<!-- 🌿 Sección Nosotros con foto de fondo -->
+<div style="position: relative; text-align: center; margin-top: 30px;" id="nosotros">
+  <img src="equipo.jpg" alt="Equipo de trabajo Red-T" 
+       style="width: 100%; max-height: 500px; object-fit: cover; filter: brightness(0.5); border-radius: 12px;">
+
+  <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+              color: white; font-family: 'Montserrat', sans-serif; padding: 20px; max-width: 900px;">
+    <h1 style="color: #fb02d2; font-size: 2.6em; margin-bottom: 15px;">Nosotros</h1>
+    <p style="font-size: 1.2em; line-height: 1.6; color: #e0e0e0;">
+      Nuestro equipo está conformado por <strong>5 integrantes</strong>: dos programadores que se encargan del desarrollo técnico, 
+      dos responsables de la documentación y un líder que coordina las tareas y decisiones.
+    </p>
+    <p style="font-size: 1.2em; line-height: 1.6; color: #e0e0e0;">
+      La finalidad de este proyecto es <strong>modernizar el cultivo de jitomate en invernaderos</strong>, 
+      integrando tecnología accesible para registrar ventas, monitorear producción y mantener un control preciso del proceso agrícola.
+    </p>
+    <p style="font-size: 1.2em; line-height: 1.6; color: #e0e0e0;">
+      Más allá de lo técnico, este proyecto también busca ser una experiencia de aprendizaje colaborativo: 
+      cada integrante aporta sus habilidades y juntos logramos un resultado que refleja esfuerzo, creatividad y compromiso con la innovación agrícola
+      (Foto tomada en la realizacion de este proyecto, la cual refleja perfectamente la quimica que hay en el equipo).
+    </p>
+  </div>
+</div>
+
+<!-- 🍅 Sección Productos con galería -->
+<div class="content" id="productos">
+  <div class="intro">
+    <h1>Productos</h1>
+    <p>
+      En <strong>Red-T</strong> cultivamos jitomates frescos y nutritivos, aprovechando la tecnología de invernaderos inteligentes para garantizar calidad en cada cosecha.
+    </p>
+    <p>
+      <strong>Tipos de jitomates más comunes:</strong> Saladette, Cherry, Raf, Kumato, Corazón de buey y Tomate en rama.
+    </p>
+    <p>
+      <strong>Fertilizantes utilizados:</strong> Nitrógeno, Fósforo, Potasio, Calcio, Magnesio y orgánicos como compost y humus de lombriz.
+    </p>
+  </div>
+
+  <!-- Galería de imágenes -->
+  <div class="gallery">
+    <!-- Jitomates -->
+    <div class="card">
+      <img src="tomate 1.jpg" alt="Jitomate Saladette">
+      <p>Saladette 🍅</p>
+    </div>
+    <div class="card">
+      <img src="Tomate 2.jpg" alt="Jitomate Cherry">
+      <p>Cherry 🍒</p>
+    </div>
+    <div class="card">
+      <img src="Tomate 3.jpg" alt="Jitomate Raf">
+      <p>Raf 🌱</p>
+    </div>
+    <div class="card">
+      <img src="tomate 4.jpg" alt="Jitomate Kumato">
+      <p>Kumato 🌑</p>
+    </div>
+
+    <!-- Fertilizantes -->
+    <div class="card">
+      <img src="fer 1.jpg" alt="Fertilizante orgánico">
+      <p>Orgánico 🌿</p>
+    </div>
+    <div class="card">
+      <img src="fer 2.jpg" alt="Fertilizante NPK">
+      <p>NPK ⚗️</p>
+    </div>
+  </div>
+</div>
+
+<!-- 📸 Sección Imágenes -->
+<div class="content" id="imagenes">
+  <h1>Imágenes</h1>
+  <p>Galería de nuestro invernadero y proceso de cultivo.</p>
+
+  <div class="image-grid">
+    <div class="image-card">
+      <img src="invernadero.jpg" alt="Invernadero">
+      <div class="overlay">Invernadero 🌱</div>
+    </div>
+    <div class="image-card">
+      <img src="cultivo.jpg" alt="Cultivo de jitomates">
+      <div class="overlay">Cultivo 🍅</div>
+    </div>
+    <div class="image-card">
+      <img src="equipo.jpg" alt="Equipo de trabajo">
+      <div class="overlay">Equipo 👥</div>
+    </div>
+    <div class="image-card">
+      <img src="cosecha.jpg" alt="Cosecha">
+      <div class="overlay">Cosecha 🚜</div>
+    </div>
+  </div>
+</div>
+
+<!-- 📞 Sección Contacto -->
+<div class="content" id="contacto">
+  <h1>Contacto</h1>
+  <p>Ponte en contacto con nosotros para más información.</p>
+
+  <div class="contact-info">
+    <div class="info-card">
+      <i class="fas fa-envelope"></i>
+      <p>q7579403@gmail.com</p>
+    </div>
+    <div class="info-card">
+      <i class="fas fa-phone"></i>
+      <p>+52 771 691 1179</p>
+    </div>
+    <div class="info-card">
+      <i class="fas fa-map-marker-alt"></i>
+      <p>Canales, Acaxochitlan Hidalgo, México</p>
+    </div>
+  </div>
+
+ <form class="contact-form" action="enviar.php" method="post">
+  <input type="text" name="nombre" placeholder="Tu nombre" required>
+  <input type="email" name="correo" placeholder="Tu correo" required>
+  <textarea name="mensaje" placeholder="Escribe tu mensaje..." required></textarea>
+  <button type="submit">Enviar</button>
+</form>
+</div>
+
+<!-- 🔻 Pie de página -->
+<footer class="footer">
+  <div class="footer-content">
+    <p>&copy; 2025 Invernadero Red-T. Todos los derechos reservados.</p>
+    <div class="footer-links">
+      <a href="#inicio">Inicio</a>
+      <a href="#productos">Productos</a>
+      <a href="#imagenes">Imágenes</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+    </div>
+  </div>
+</footer>
+
+
+  <!-- Script -->
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.style.left = (sidebar.style.left === '0px') ? '-250px' : '0px';
+    }
+
+    // Cerrar la barra si se presiona Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.style.left = '-250px';
+      }
+    });
+  </script>
+
+</body>
+</html>
